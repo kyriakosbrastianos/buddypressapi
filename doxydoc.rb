@@ -12,8 +12,8 @@ def get_codex_links function
   fnref = []
   tmtag = []
   $codex_index.each do |link|
-    fnref << link if link =~ %r[^http://codex.wordpress.org/Function_Reference/#{function}$]
-    tmtag << link if link =~ %r[^http://codex.wordpress.org/Template_Tags/#{function}$]
+    fnref << link if link =~ %r[^http://codex.buddypress.org/developer-docs/functions/#{function}$]
+    tmtag << link if link =~ %r[^http://codex.buddypress.org/developer-docs/conditional-template-tags/#{function}$]
   end
 
   if fnref.size > 1 or tmtag.size > 1
@@ -56,7 +56,7 @@ class RDoc::Parser::Doxygen < RDoc::Parser
       refid = compound.xpath('@refid').text
       file = File.join(@@superdoxy, refid+'.xml')
       unless File.exist? file
-        file = File.join(@@superdoxy, 'wp-includes_2'+refid+'.xml')
+        file = File.join(@@superdoxy, ''+refid+'.xml')
       end
 
       compounddef = Nokogiri::XML(open(file))
@@ -142,7 +142,7 @@ RDOC
     Dir.mkdir @doxyout
 
     if global
-      input_files = 'wp-includes'
+      input_files = 'buddypress'
     else
       input_files = %Q%"#{@path}"%
     end
@@ -240,7 +240,7 @@ end
 class RDoc::AnyMethod
   def geshi code
     php = <<PHP
-include("../geshi/geshi.php");
+include("../../geshi/geshi.php");
 $code = file_get_contents("php://stdin");
 $geshi = new GeSHi($code, "php");
 echo $geshi->parse_code();
@@ -287,5 +287,5 @@ end
 if __FILE__ == $0
   r = RDoc::RDoc.new
   output = 'doc'
-  r.document ['README.rdoc', 'wp-includes', '-o', output, '-t', 'WordPress API']
+  r.document ['README.rdoc', 'buddypress', '-o', output, '-t', 'BuddyPress API']
 end

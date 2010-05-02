@@ -1,18 +1,24 @@
-= WordPress API
+= BuddyPress API
 
-WordPress[http://wordpress.org/] self-documentation rendered using RDoc[http://rdoc.rubyforge.org/].
+BuddyPress[http://buddypress.org/] self-documentation rendered using RDoc[http://rdoc.rubyforge.org/].
 
 == Generate your own
 
 How to generate the documentation:
 
-  git clone git://github.com/dxw/wordpressapi.git
-  cd wordpressapi
-  gem install wpdoc
-  git clone git://github.com/dxw/geshi.git
-  git clone git://github.com/dxw/wordpress.git
-  ln -s wordpress/wp-includes
-  ruby update_codex.rb
+  Required gems:
+  * json
+  * nokogiri
+  * rdoc
+  * rdoc-data
+  * wpdoc
+
+  git clone git://github.com/stas/buddypressapi.git bpapi
+  svn co http://svn.buddypress.org/trunk/ buddypress
+  svn co https://geshi.svn.sourceforge.net/svnroot/geshi/trunk/geshi-1.0.X/src/ geshi
+  cd bpapi
+  ln -s ../buddypress buddypress
+  rm -rf buddypress/bp-forums/bbpress buddypress/bp-themes
   ruby doxydoc.rb
 
 And your documentation will be in doc.
@@ -26,3 +32,5 @@ We create an RDoc::Parser that uses Doxygen, and then we use some magick to conv
 Why not just use Doxygen's HTML output? Or PhpDocumentor (which doesn't work)?
 
 Because Doxygen's docs are neither pretty nor Ajaxy. With RDoc, we can use pretty generators like wpdoc ( http://github.com/dxw/sdoc/tree/wordpress ), our fork of the beautiful sdoc.
+
+Fork of http://github.com/dxw/wordpressapi
